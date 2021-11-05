@@ -10,15 +10,19 @@ package com.bridgelabz.cabinvoice;
 public class InvoiceGenerator {
     private static final double MINIMUM_COST_PER_KM = 10;
     private static final int COST_PER_MIN = 1;
+    private static final int MINIMUM_FARE = 5;
 
     /**
-     * method to calculate fare for particular ride
+     * method to calculate total fare for particular ride
      *
      * @param distance
      * @param time
      * @return total fare
      */
     public double calculateFare(double distance, int time) {
-        return distance * MINIMUM_COST_PER_KM + time * COST_PER_MIN;
+        double totalFare = distance * MINIMUM_COST_PER_KM + time * COST_PER_MIN;
+        if (totalFare <= MINIMUM_FARE)
+            return MINIMUM_FARE;
+        return totalFare;
     }
 }
