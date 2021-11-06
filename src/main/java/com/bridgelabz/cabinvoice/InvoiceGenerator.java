@@ -8,9 +8,13 @@ package com.bridgelabz.cabinvoice;
  * @since 04/11/2021
  */
 public class InvoiceGenerator {
+
     private static final double MINIMUM_COST_PER_KM = 10;
     private static final int COST_PER_MIN = 1;
-    private static final int MINIMUM_FARE = 5;
+    private static final double MINIMUM_FARE = 5.0;
+
+    public InvoiceGenerator() {
+    }
 
     /**
      * method to calculate total fare for particular ride
@@ -21,16 +25,21 @@ public class InvoiceGenerator {
      */
     public double calculateFare(double distance, int time) {
         double totalFare = distance * MINIMUM_COST_PER_KM + time * COST_PER_MIN;
-        if (totalFare <= MINIMUM_FARE)
-            return MINIMUM_FARE;
-        return totalFare;
+        return Math.max(totalFare, MINIMUM_FARE);
     }
 
-    public double calculateFare(Ride[] rides) {
+    /**
+     * method to calculate fare for multiple rides
+     *
+     * @param rides
+     * @return total fare
+     */
+    public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
         for (Ride ride : rides) {
             totalFare += this.calculateFare(ride.distance, ride.time);
         }
-        return totalFare;
+        return new InvoiceSummary(rides.length, totalFare);
     }
+
 }
