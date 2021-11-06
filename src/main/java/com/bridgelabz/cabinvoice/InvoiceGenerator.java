@@ -12,8 +12,10 @@ public class InvoiceGenerator {
     private static final double MINIMUM_COST_PER_KM = 10;
     private static final int COST_PER_MIN = 1;
     private static final double MINIMUM_FARE = 5.0;
+    private final RideRepository rideRepository;
 
     public InvoiceGenerator() {
+        this.rideRepository = new RideRepository();
     }
 
     /**
@@ -42,4 +44,17 @@ public class InvoiceGenerator {
         return new InvoiceSummary(rides.length, totalFare);
     }
 
+    /**
+     * method to add rides with respect to the userID
+     * @param userId
+     * @param rides
+     */
+    public void addRides(String userId, Ride[] rides) {
+
+        rideRepository.addRides(userId, rides);
+    }
+
+    public InvoiceSummary getInvoiceSummary(String userId) {
+        return this.calculateFare(rideRepository.getRides(userId));
+    }
 }
