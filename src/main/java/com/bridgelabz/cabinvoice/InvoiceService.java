@@ -7,14 +7,14 @@ package com.bridgelabz.cabinvoice;
  * @version 12.0
  * @since 04/11/2021
  */
-public class InvoiceGenerator {
+public class InvoiceService {
 
     private static final double MINIMUM_COST_PER_KM = 10;
     private static final int COST_PER_MIN = 1;
     private static final double MINIMUM_FARE = 5.0;
-    private final RideRepository rideRepository;
+    private RideRepository rideRepository;
 
-    public InvoiceGenerator() {
+    public InvoiceService() {
         this.rideRepository = new RideRepository();
     }
 
@@ -39,18 +39,18 @@ public class InvoiceGenerator {
     public InvoiceSummary calculateFare(Ride[] rides) {
         double totalFare = 0;
         for (Ride ride : rides) {
-            totalFare += this.calculateFare(ride.distance, ride.time);
+            totalFare += ride.cabRide.calculateRideCost(ride);
         }
         return new InvoiceSummary(rides.length, totalFare);
     }
 
     /**
      * method to add rides with respect to the userID
+     *
      * @param userId
      * @param rides
      */
     public void addRides(String userId, Ride[] rides) {
-
         rideRepository.addRides(userId, rides);
     }
 

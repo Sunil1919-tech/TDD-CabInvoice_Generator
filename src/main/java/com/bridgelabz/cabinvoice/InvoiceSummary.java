@@ -16,6 +16,7 @@ public class InvoiceSummary {
 
     /**
      * initializing the variables
+     *
      * @param numOfRides
      * @param totalFare
      */
@@ -30,7 +31,9 @@ public class InvoiceSummary {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InvoiceSummary that = (InvoiceSummary) o;
-        return numOfRides == that.numOfRides && Double.compare(that.totalFare, totalFare) == 0 && Double.compare(that.averageFare, averageFare) == 0;
+        return numOfRides == that.numOfRides &&
+                Double.compare(that.totalFare, totalFare) == 0 &&
+                Double.compare(that.averageFare, averageFare) == 0;
     }
 
 }
